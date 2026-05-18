@@ -1,0 +1,77 @@
+{
+  "name": "openai-codex-oauth",
+  "version": "0.0.0",
+  "description": "OpenAI Codex OAuth provider and token helpers for the Vercel AI SDK.",
+  "author": "respectmathias",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RespectMathias/openai-codex-oauth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RespectMathias/openai-codex-oauth/issues"
+  },
+  "homepage": "https://github.com/RespectMathias/openai-codex-oauth#readme",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/node/index.d.ts",
+      "import": "./dist/node/index.js",
+      "default": "./dist/node/index.js"
+    },
+    "./proxy": {
+      "types": "./dist/proxy.d.ts",
+      "import": "./dist/proxy.js",
+      "default": "./dist/proxy.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup --tsconfig tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@ai-sdk/openai": ">=3.0.0",
+    "@ai-sdk/provider": ">=3.0.0",
+    "ai": ">=6.0.0"
+  },
+  "devDependencies": {
+    "@ai-sdk/openai": "^3.0.64",
+    "@ai-sdk/provider": "^3.0.10",
+    "@types/node": "^20.17.24",
+    "ai": "^6.0.184",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^4.1.5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": false
+  },
+  "keywords": [
+    "ai-sdk",
+    "openai",
+    "oauth",
+    "codex",
+    "vercel",
+    "chatgpt"
+  ]
+}
