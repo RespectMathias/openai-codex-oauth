@@ -92,20 +92,38 @@ function resolveWritePath(authFilePath?: string): string {
 }
 
 /**
- * Attempts to read and parse an auth.json file from the list of candidates.
- * Returns the first successfully parsed file's path and data.
+ * Returns whether the parsed auth file contains enough token data for `toTokens`
+ * to produce usable credentials.
+ */
+function hasUsableStoredTokens(data: StoredAuthFile | undefined): boolean {
+  return Boolean(data?.tokens?.access_token);
+}
+
+/**
+ * Attempts to read and parse auth.json files from the list of candidates.
+ * Remembers the first successfully parsed file for future writes, but continues
+ * searching until a file with usable token data is found.
  */
 async function readAuthFile(candidates: string[]): Promise<{ filePath?: string; data?: StoredAuthFile }> {
+  let firstParsed: { filePath?: string; data?: StoredAuthFile } | undefined;
+
   for (const candidate of candidates) {
     try {
       const raw = await fs.readFile(candidate, 'utf8');
       const parsed = JSON.parse(raw) as StoredAuthFile;
-      return { filePath: candidate, data: parsed };
+
+      if (!firstParsed) {
+        firstParsed = { filePath: candidate, data: parsed };
+      }
+
+      if (hasUsableStoredTokens(parsed)) {
+        return { filePath: firstParsed.filePath, data: parsed };
+      }
     } catch {
     }
   }
 
-  return {};
+  return firstParsed ?? {};
 }
 
 /**
