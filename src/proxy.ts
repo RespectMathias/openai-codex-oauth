@@ -85,11 +85,11 @@ export function createOpenAIOAuthProxy(options: OpenAIOAuthProxyOptions = {}) {
         body: await requestBody(request, options),
       });
 
-      return new Response(await upstream.text(), {
+      return new Response(upstream.body, {
         status: upstream.status,
         headers: {
           'Content-Type': upstream.headers.get('Content-Type') ?? 'application/json',
-          'Cache-Control': 'no-store',
+          'Cache-Control': upstream.headers.get('Cache-Control') ?? 'no-store',
         },
       });
     },
