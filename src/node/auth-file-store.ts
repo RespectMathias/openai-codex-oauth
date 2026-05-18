@@ -156,6 +156,12 @@ async function writeAuthFile(filePath: string, data: StoredAuthFile): Promise<vo
     encoding: 'utf8',
     mode: 0o600,
   });
+
+  try {
+    await fs.chmod(filePath, 0o600);
+  } catch {
+    // Ignore platforms/filesystems that do not support chmod semantics.
+  }
 }
 
 /**
