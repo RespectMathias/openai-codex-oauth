@@ -1,6 +1,6 @@
 {
   "name": "openai-codex-oauth",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "OpenAI Codex OAuth provider and token helpers for the Vercel AI SDK.",
   "author": "respectmathias",
   "type": "module",
